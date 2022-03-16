@@ -1,6 +1,7 @@
 import java.util.*;
 
-public class LoginPage {
+public class LoginPage 
+{
     private ArrayList<Account> accArr;
     
 }

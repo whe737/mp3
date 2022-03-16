@@ -1,3 +1,4 @@
-public class Example extends Account{
+public class Example extends Account
+{
     
 }
