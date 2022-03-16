@@ -35,4 +35,19 @@ public class Passwords
     {
         return password;
     }
+    public int compareTo(Passwords pass, boolean n)  //true if the comparison is for sites
+    {
+        if (n==true)
+        {
+            return this.loginPlace.compareTo(pass.getLogin());
+        }
+        else
+        {
+            return this.username.compareTo(pass.getUsername());
+        }
+    }   
+    public String toString()
+    {
+        return "Login location:"+loginPlace+"\nUsername: "+username+"\nPassword: "+password;
+    }
 }
