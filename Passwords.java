@@ -48,6 +48,6 @@ public class Passwords
     }   
     public String toString()
     {
-        return "Login location:"+loginPlace+"\nUsername: "+username+"\nPassword: "+password;
+        return "Login location: "+loginPlace+"\nUsername: "+username+"\nPassword: "+password;
     }
 }

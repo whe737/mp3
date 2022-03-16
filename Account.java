@@ -22,8 +22,18 @@ public class Account
         return passArr.get(i);
     }
 
-    public ArrayList<Passwords> sortBySite(ArrayList<Passwords> passArr)  //uses selection sort to sort by websites
+    public int getAmountOfPasswords()
     {
+        return passArr.size();
+    }
+
+    public ArrayList<Passwords> sortBySite(Account pass)  //uses selection sort to sort by websites
+    {
+        ArrayList<Passwords> passArr=new ArrayList<>();
+        for (int j=0;j<pass.getAmountOfPasswords();j++)
+        {
+            passArr.add(pass.getPassAtIndex(j));
+        }
         for (int i=0;i<passArr.size()-1;i++)
         {
             int minimum=i;
