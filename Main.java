@@ -4,10 +4,10 @@ public class Main
     {
         Account test=new Account("name", "pass");
         test.addPassword(new Passwords("pupilpath", "name", "pass"));
-        test.addPassword(new Passwords("", "", ""));
-        test.addPassword(new Passwords("thin", "name", "na"));
+        test.addPassword(new Passwords("a", "a", "a"));
+        test.addPassword(new Passwords("thing", "name", "na"));
         test.printAllPasswords();
         System.out.println("sort separator: --------------------------");
-        System.out.println(test.sortBySite(test));
+        System.out.println(test.sortBySite());
     }
 }

@@ -5,6 +5,7 @@ public class Account
     private String username;
     private String password;
     private ArrayList<Passwords> passArr=new ArrayList<>();
+    private ArrayList<Passwords> passArr2=new ArrayList<>(); //to store in chronilogical order no matter what
     
     public Account(String user, String pass)
     {
@@ -27,12 +28,12 @@ public class Account
         return passArr.size();
     }
 
-    public ArrayList<Passwords> sortBySite(Account pass)  //uses selection sort to sort by websites
+    public ArrayList<Passwords> sortBySite()  //uses selection sort to sort by websites
     {
         ArrayList<Passwords> passArr=new ArrayList<>();
-        for (int j=0;j<pass.getAmountOfPasswords();j++)
+        for (int j=0;j<this.getAmountOfPasswords();j++)
         {
-            passArr.add(pass.getPassAtIndex(j));
+            passArr.add(this.getPassAtIndex(j));
         }
         for (int i=0;i<passArr.size()-1;i++)
         {

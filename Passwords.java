@@ -35,19 +35,19 @@ public class Passwords
     {
         return password;
     }
-    public int compareTo(Passwords pass, boolean n)  //true if the comparison is for sites
+    public int compareTo(Passwords pass, boolean n)  //true if the comparison is for sites, false for usernames
     {
         if (n==true)
         {
-            return this.loginPlace.compareTo(pass.getLogin());
+            return this.loginPlace.toLowerCase().compareTo(pass.getLogin().toLowerCase());
         }
         else
         {
-            return this.username.compareTo(pass.getUsername());
+            return this.username.toLowerCase().compareTo(pass.getUsername().toLowerCase());
         }
     }   
     public String toString()
     {
-        return "Login location: "+loginPlace+"\nUsername: "+username+"\nPassword: "+password;
+        return "Login location: "+loginPlace+"\nUsername: "+username+"\nPassword: "+password+"\n";
     }
 }
