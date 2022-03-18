@@ -16,6 +16,7 @@ public class Account
     public void addPassword(Passwords pass)
     {
         passArr.add(pass);
+        passArr2.add(pass);
     }
 
     public Passwords getPassAtIndex(int i)
