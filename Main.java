@@ -9,5 +9,6 @@ public class Main
         test.printAllPasswords();
         System.out.println("sort separator: --------------------------");
         System.out.println(test.sortBySite());
+        LoginPage log=new LoginPage();
     }
 }
