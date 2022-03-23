@@ -63,4 +63,16 @@ public class Account
             System.out.println(i);
         }
     }
+
+    public boolean equals(Account obj)
+    {
+        if (obj.username.equals(username)&&obj.password.equals(password))
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
 }
