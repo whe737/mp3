@@ -69,9 +69,9 @@ public class Account
         }
     }
 
-    public boolean equals(Account obj)
+    public boolean equals(Object object)
     {
-        if (obj.username.equals(username)&&obj.password.equals(password))
+        if (((Account)object).username.equals(username)&&((Account)object).password.equals(password))
         {
             return true;
         }
