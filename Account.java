@@ -80,4 +80,60 @@ public class Account
             return false;
         }
     }
+    private static boolean checkSpecialChars(String password)
+    {
+        String specialChars="!@#$%^&*";
+        for (int i=0;i<specialChars.length(); i++)
+        {
+            if (password.indexOf(specialChars.substring(i,i+1))!=-1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private static boolean checkUppercase(String password)
+    {
+        String upperChars="QWERTYUIOPASDFGHJKLZXCVBNM";
+        for (int i=0;i<upperChars.length(); i++)
+        {
+            if (password.indexOf(upperChars.substring(i,i+1))!=-1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private static boolean checkLowercase(String password) //don't work
+    {
+        String lowerChars="qwertyuiopasdfghjklzxcvbnm";
+        for (int i=0;i<lowerChars.length(); i++)
+        {
+            if (password.indexOf(lowerChars.substring(i,i+1))!=-1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public static String passwordIsStrongEnough(String pass) //checks to see if password is strong enough
+    {
+        if (checkSpecialChars(pass)==false)
+        {
+            return "Password does not contain a special character.";
+        }
+        if (pass.length()<8)
+        {
+            return "Password is too short. ";
+        }
+        if (checkUppercase(pass)==false)
+        {
+            return "Password does not contain an uppercase. ";
+        }
+        if (checkLowercase(pass)==false)
+        {
+            return "Password does not contain a lowercase. ";
+        }
+        return "Strong";
+    }
 }

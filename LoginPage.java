@@ -17,6 +17,7 @@ public class LoginPage implements ActionListener
     JPasswordField passField=new JPasswordField();
     JButton loginButton=new JButton();
     JButton registerButton=new JButton();
+    JButton registerButton2=new JButton();
 
     public LoginPage()
     {
@@ -55,7 +56,22 @@ public class LoginPage implements ActionListener
         superPanel.add(main, "main");
 
         //register page
-
+        ImageIcon regBg=new ImageIcon(".//assets//Frame 2.png");
+        ImageIcon reg2=new ImageIcon(".//assets//RegisterButton.png");
+        JLabel regBackImage=new JLabel(regBg);
+        regBackImage.setBounds(0,0,900,720);
+        regBackImage.setVisible(true);
+        registerButton2.setVisible(true);
+        registerButton2.setIcon(reg2);
+        registerButton2.setFocusable(false);
+        registerButton2.setFocusPainted(false);
+        registerButton2.setBorderPainted(false);
+        registerButton2.setContentAreaFilled(false);
+        registerButton2.setBounds(577,620,154,44);
+        registerButton2.addActionListener(this);
+        register.add(registerButton2);
+        register.add(regBackImage);
+        superPanel.add(register,"register");
 
         //login page
         frame.add(superPanel);
@@ -85,6 +101,10 @@ public class LoginPage implements ActionListener
             }
             temp=new Account();
             System.out.println("Account not found"); //make label visible that says account not found
+        }
+        if (e.getSource()==registerButton2)
+        {
+            
         }
     }
 }
