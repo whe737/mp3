@@ -74,11 +74,17 @@ public class LoginPage implements ActionListener
         }
         if (e.getSource()==loginButton)
         {
-            Account temp=new Account(userField.getText(),passField.getPassword());
+            Account temp=new Account(userField.getText(),String.valueOf(passField.getPassword()));
             for (Account i:accArr)
             {
-                if (i.equals())
+                if (i.equals(temp))
+                {
+                    //call in the main window here
+                    frame.dispose();
+                }
             }
+            temp=new Account();
+            System.out.println("Account not found"); //make label visible that says account not found
         }
     }
 }

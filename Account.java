@@ -13,6 +13,11 @@ public class Account
         password=pass;
     }
 
+    public Account() {
+        username="";
+        password="";
+    }
+
     public void addPassword(Passwords pass)
     {
         passArr.add(pass);
