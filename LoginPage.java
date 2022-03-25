@@ -5,8 +5,7 @@ import javax.swing.*;
 
 public class LoginPage implements ActionListener
 {
-    private ArrayList<Account> accArr;
-
+    private ArrayList<Account> accArr= new ArrayList<>();
     JFrame frame=new JFrame("Byte Locker Login");
     CardLayout cardSwitch=new CardLayout();
     JPanel superPanel=new JPanel(cardSwitch);
@@ -15,12 +14,23 @@ public class LoginPage implements ActionListener
     JPanel register=new JPanel(null);
     JTextField userField=new JTextField();
     JPasswordField passField=new JPasswordField();
+    JTextField userField2=new JTextField();
+    JPasswordField passField2=new JPasswordField();
+    JPasswordField confirmPass=new JPasswordField();
+    JTextField captcha=new JTextField();
     JButton loginButton=new JButton();
     JButton registerButton=new JButton();
     JButton registerButton2=new JButton();
+    JButton backButton=new JButton();
+
 
     public LoginPage()
     {
+        //example
+        Example examp=new Example("example", "password");
+        accArr.add(examp);
+        examp.resetExample();
+
         //main page
         ImageIcon bg=new ImageIcon(".//assets//Frame 1.png");
         ImageIcon lg=new ImageIcon(".//assets//LoginButton.png");
@@ -58,6 +68,7 @@ public class LoginPage implements ActionListener
         //register page
         ImageIcon regBg=new ImageIcon(".//assets//Frame 2.png");
         ImageIcon reg2=new ImageIcon(".//assets//RegisterButton.png");
+        ImageIcon backBut=new ImageIcon(".//assets//Back.png");
         JLabel regBackImage=new JLabel(regBg);
         regBackImage.setBounds(0,0,900,720);
         regBackImage.setVisible(true);
@@ -67,9 +78,30 @@ public class LoginPage implements ActionListener
         registerButton2.setFocusPainted(false);
         registerButton2.setBorderPainted(false);
         registerButton2.setContentAreaFilled(false);
-        registerButton2.setBounds(577,620,154,44);
+        registerButton2.setBounds(577,588,154,44);
         registerButton2.addActionListener(this);
+        backButton.setVisible(true);
+        backButton.setIcon(backBut);
+        backButton.setFocusable(false);
+        backButton.setFocusPainted(false);
+        backButton.setBorderPainted(false);
+        backButton.setContentAreaFilled(false);
+        backButton.setBounds(577,648,154,44);
+        backButton.addActionListener(this);
+        userField2.setBounds(500,170,300,52);
+        userField2.setBorder(javax.swing.BorderFactory.createEmptyBorder());  //removes border from textfields
+        passField2.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        passField2.setBounds(500,280,300,52);
+        confirmPass.setBounds(500,390,300,52);
+        confirmPass.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        captcha.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        captcha.setBounds(604,491,95,31);
         register.add(registerButton2);
+        register.add(backButton);
+        register.add(userField2);
+        register.add(passField2);
+        register.add(captcha);
+        register.add(confirmPass);
         register.add(regBackImage);
         superPanel.add(register,"register");
 
@@ -90,21 +122,31 @@ public class LoginPage implements ActionListener
         }
         if (e.getSource()==loginButton)
         {
+            Boolean loginFound=false;
             Account temp=new Account(userField.getText(),String.valueOf(passField.getPassword()));
             for (Account i:accArr)
             {
                 if (i.equals(temp))
                 {
+                    System.out.println("Logged to "+userField.getText());
                     //call in the main window here
+                    loginFound=true;
                     frame.dispose();
                 }
             }
-            temp=new Account();
-            System.out.println("Account not found"); //make label visible that says account not found
+            if (loginFound==false)
+            {
+                temp=new Account();
+                System.out.println("Account not found"); //make label visible that says account not found
+            }
         }
         if (e.getSource()==registerButton2)
         {
             
+        }
+        if (e.getSource()==backButton)
+        {
+            cardSwitch.show(superPanel, "main");
         }
     }
 }
