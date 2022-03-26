@@ -18,6 +18,16 @@ public class Account
         password="";
     }
 
+    public String getUsername()
+    {
+        return username;
+    }
+    
+    public String getPassword()
+    {
+        return password;
+    }
+
     public void addPassword(Passwords pass)
     {
         passArr.add(pass);
@@ -104,7 +114,7 @@ public class Account
         }
         return false;
     }
-    private static boolean checkLowercase(String password) //don't work
+    private static boolean checkLowercase(String password) 
     {
         String lowerChars="qwertyuiopasdfghjklzxcvbnm";
         for (int i=0;i<lowerChars.length(); i++)

@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.Array;
 import java.util.*;
 import javax.swing.*;
 
@@ -22,7 +23,10 @@ public class LoginPage implements ActionListener
     JButton registerButton=new JButton();
     JButton registerButton2=new JButton();
     JButton backButton=new JButton();
-
+    JLabel captchaLabel;
+    JLabel warningLabel=new JLabel();
+    int generatedCode=genCaptcha();
+    JLabel loginFail=new JLabel();
 
     public LoginPage()
     {
@@ -38,10 +42,11 @@ public class LoginPage implements ActionListener
         JLabel bgImage=new JLabel(bg);
         bgImage.setBounds(0,0,900,720);
         bgImage.setVisible(true);
-        userField.setBounds(510,266,300,52);
+        loginFail.setForeground(Color.red);
+        userField.setBounds(510,229,300,52);
         userField.setBorder(javax.swing.BorderFactory.createEmptyBorder());  //removes border from textfields
         passField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        passField.setBounds(510,384,300,52);
+        passField.setBounds(510,331,300,52);
         loginButton.setVisible(true);
         loginButton.setIcon(lg);
         loginButton.setFocusable(false);
@@ -60,6 +65,7 @@ public class LoginPage implements ActionListener
         registerButton.addActionListener(this);
         main.add(registerButton);
         main.add(loginButton);
+        main.add(loginFail);
         main.add(bgImage);
         main.add(userField);
         main.add(passField);
@@ -69,6 +75,7 @@ public class LoginPage implements ActionListener
         ImageIcon regBg=new ImageIcon(".//assets//Frame 2.png");
         ImageIcon reg2=new ImageIcon(".//assets//RegisterButton.png");
         ImageIcon backBut=new ImageIcon(".//assets//Back.png");
+        captchaLabel=new JLabel(""+generatedCode);
         JLabel regBackImage=new JLabel(regBg);
         regBackImage.setBounds(0,0,900,720);
         regBackImage.setVisible(true);
@@ -78,7 +85,7 @@ public class LoginPage implements ActionListener
         registerButton2.setFocusPainted(false);
         registerButton2.setBorderPainted(false);
         registerButton2.setContentAreaFilled(false);
-        registerButton2.setBounds(577,588,154,44);
+        registerButton2.setBounds(573,588,154,44);
         registerButton2.addActionListener(this);
         backButton.setVisible(true);
         backButton.setIcon(backBut);
@@ -86,7 +93,7 @@ public class LoginPage implements ActionListener
         backButton.setFocusPainted(false);
         backButton.setBorderPainted(false);
         backButton.setContentAreaFilled(false);
-        backButton.setBounds(577,648,154,44);
+        backButton.setBounds(573,648,154,44);
         backButton.addActionListener(this);
         userField2.setBounds(500,170,300,52);
         userField2.setBorder(javax.swing.BorderFactory.createEmptyBorder());  //removes border from textfields
@@ -96,10 +103,17 @@ public class LoginPage implements ActionListener
         confirmPass.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         captcha.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         captcha.setBounds(604,491,95,31);
+        captchaLabel.setBounds(720,455,95,31);
+        captchaLabel.setVisible(true);
+        warningLabel.setBounds(602,500,300,100);
+        warningLabel.setVisible(false);
+        warningLabel.setForeground(Color.red);
+        register.add(captchaLabel);
         register.add(registerButton2);
         register.add(backButton);
         register.add(userField2);
         register.add(passField2);
+        register.add(warningLabel);
         register.add(captcha);
         register.add(confirmPass);
         register.add(regBackImage);
@@ -136,17 +150,86 @@ public class LoginPage implements ActionListener
             }
             if (loginFound==false)
             {
+                loginFail.setText("Please try again.");
+                loginFail.setBounds(615,400,300,54);
                 temp=new Account();
-                System.out.println("Account not found"); //make label visible that says account not found
             }
         }
         if (e.getSource()==registerButton2)
         {
-            
+            boolean dupeName=false;
+            for (Account i:accArr)
+            {
+                if (i.getUsername().equals(userField2.getText()))
+                {
+                    dupeName=true;
+                }
+            }
+            System.out.println("Account creation requested");
+            if (dupeName)
+            {
+                warningLabel.setBounds(565,500,300,100);
+                warningLabel.setText("Please change your username.");
+                warningLabel.setVisible(true);
+            }
+            else if (captcha.getText().equals("")||Integer.parseInt(captcha.getText())!=generatedCode)
+            {
+                warningLabel.setBounds(602,500,300,100);
+                warningLabel.setText("Redo Captcha.");
+                warningLabel.setVisible(true);
+                generatedCode=genCaptcha();
+                captchaLabel.setText(""+generatedCode);
+            }
+            else if (userField2.getText().equals(""))
+            {
+                warningLabel.setBounds(602,500,300,100);
+                warningLabel.setText("Username cannot be blank.");
+                warningLabel.setVisible(true);
+                generatedCode=genCaptcha();
+                captchaLabel.setText(""+generatedCode);
+            }
+            else
+            {
+                if (!String.valueOf(passField2.getPassword()).equals("")||!String.valueOf(confirmPass.getPassword()).equals(""))
+                {
+                    if (!String.valueOf(passField2.getPassword()).equals(String.valueOf(confirmPass.getPassword())))
+                    {
+                        warningLabel.setText("Passwords do not match up.");
+                        warningLabel.setVisible(true);
+                        generatedCode=genCaptcha();
+                        captchaLabel.setText(""+generatedCode);
+                    }
+                    else 
+                    {
+                        if (Account.passwordIsStrongEnough(String.valueOf(passField2.getPassword())).equals("Strong"))
+                        {
+                            accArr.add(new Account(userField2.getText(),String.valueOf(passField2.getPassword())));
+                            cardSwitch.show(superPanel, "main");
+                        }
+                        else 
+                        {
+                            warningLabel.setText(Account.passwordIsStrongEnough(String.valueOf(passField2.getPassword())));
+                            warningLabel.setBounds(500,500,300,100);
+                            warningLabel.setVisible(true);
+                        }
+                    }
+                }
+                else
+                {
+                    warningLabel.setText("Please type a password.");
+                    warningLabel.setVisible(true);
+                    generatedCode=genCaptcha();
+                    captchaLabel.setText(""+generatedCode);
+                }
+            }
         }
         if (e.getSource()==backButton)
         {
             cardSwitch.show(superPanel, "main");
         }
+    }
+    public int genCaptcha()
+    {
+        return (int) (Math.random()*899999+100000);
     }
 }
