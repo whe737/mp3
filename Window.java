@@ -3,7 +3,7 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
-public class Window implements ActionListener{
+public class Window implements ActionListener {
     JFrame frame=new JFrame("Byte Locker");
     CardLayout cardSwitch=new CardLayout();
     JPanel panel=new JPanel(null);
@@ -13,16 +13,19 @@ public class Window implements ActionListener{
     JButton deleteButt=new JButton();
     JButton passGen=new JButton();
     JButton logout1=new JButton();
-    JComboBox drop=new JComboBox<>();
+    JComboBox dropMenu;
     JTable table=new JTable();
     JPanel tablePanel=new JPanel(new BorderLayout());
     JScrollPane scrollPane=new JScrollPane();
     Account passArr;
+    ArrayList<Passwords> tableData=new ArrayList<>();
 
 
-    public Window(Account passArr)
+    public Window(Account passArray)
     {
-        this.passArr=passArr;
+        this.passArr=passArray;
+        tableData=passArr.getPasswords();
+        System.out.println(tableData);
         //imageicons
         ImageIcon backBG=new ImageIcon(".//assets//Frame 3.png");
         ImageIcon logIcon1=new ImageIcon(".//assets//Logout.png");
@@ -60,8 +63,12 @@ public class Window implements ActionListener{
         scrollPane.setViewportView(table);
         tablePanel.add(scrollPane);
         panel.add(tablePanel);
+        //combobox
+        String[] options={"Date Added","Website Ascending","Website Descending","Username Ascending","Username Descending"};
+        dropMenu=new JComboBox<String>(options);
+        dropMenu.setBounds(1000,150,204,50);
 
-
+        panel.add(dropMenu);
         panel.add(table);
         panel.add(addButt);
         panel.add(passGen);
@@ -90,7 +97,28 @@ public class Window implements ActionListener{
         }
         if (e.getSource()==sortButt)
         {
-
+            if (String.valueOf(dropMenu.getSelectedItem()).equals("Date Added"))
+            {
+                tableData=passArr.sortByChronological();
+            }
+            if (String.valueOf(dropMenu.getSelectedItem()).equals("Website Ascending"))
+            {
+                tableData=passArr.sortBySiteAscending();
+            }
+            if (String.valueOf(dropMenu.getSelectedItem()).equals("Website Descending"))
+            {
+                tableData=passArr.sortBySiteDescending();
+            }
+            if (String.valueOf(dropMenu.getSelectedItem()).equals("Username Ascending"))
+            {
+                tableData=passArr.sortByUsernameAscending();
+            }
+            if (String.valueOf(dropMenu.getSelectedItem()).equals("Username Descending"))
+            {
+                tableData=passArr.sortByUsernameDescending();
+            }
+            System.out.println();
+            System.out.println(tableData);
         }
     }
     public void appendButton(JButton a)

@@ -34,43 +34,43 @@ public class Account
         passArr2.add(pass);
     }
 
+    public ArrayList<Passwords> getPasswords()
+    {
+        return this.passArr;
+    }
+
     public Passwords getPassAtIndex(int i)
     {
-        return passArr.get(i);
+        return this.passArr.get(i);
     }
 
     public int getAmountOfPasswords()
     {
-        return passArr.size();
+        return this.passArr.size();
     }
 
     public void removePassword(int i)
     {
-        passArr.remove(i-1);
-        passArr2.remove(i-1);
+        this.passArr.remove(i-1);
+        this.passArr2.remove(i-1);
     }
 
     public ArrayList<Passwords> sortByChronological()
     {
-        passArr=new ArrayList<>();
-        for (int i=0;i<passArr.size();i++)
-        {
-            passArr.set(i, passArr2.get(i));
-        }
         return passArr;
     }
 
-    public ArrayList<Passwords> sortBySite()  //uses selection sort to sort by websites
+    public ArrayList<Passwords> sortBySiteAscending()  //uses selection sort to sort by websites
     {
-        ArrayList<Passwords> passArr=new ArrayList<>();
+        ArrayList<Passwords> passArray=new ArrayList<>();
         for (int j=0;j<this.getAmountOfPasswords();j++)
         {
-            passArr.add(this.getPassAtIndex(j));
+            passArray.add(this.getPassAtIndex(j));
         }
-        for (int i=0;i<passArr.size()-1;i++)
+        for (int i=0;i<passArray.size()-1;i++)
         {
             int minimum=i;
-            for (int k=i+1;k<passArr.size()-1;k++)
+            for (int k=i+1;k<passArray.size()-1;k++)
             {
                 if (getPassAtIndex(k).compareTo(getPassAtIndex(minimum),true)<0)
                 {
@@ -79,34 +79,56 @@ public class Account
             }
             if (i!=minimum)
             {
-                Passwords temp=passArr.get(minimum);
-                passArr.set(minimum, passArr.get(i));
-                passArr.set(i, temp);
+                Passwords temp=passArray.get(minimum);
+                passArray.set(minimum, passArr.get(i));
+                passArray.set(i, temp);
             }
         }
-        return passArr;
+        return passArray;  
     }
 
-    public ArrayList<Passwords> sortByUsername()
+    public ArrayList<Passwords> sortBySiteDescending()
     {
-        ArrayList<Passwords> passArr=new ArrayList<>();
+        ArrayList<Passwords> temp=sortBySiteAscending();
+        ArrayList<Passwords> passArray=new ArrayList<>();
+        for (int i=temp.size()-1;i>=0;i--)
+        {
+            passArray.add(temp.get(i));
+        }
+        return passArray;
+    }
+
+    public ArrayList<Passwords> sortByUsernameAscending()
+    {
+        ArrayList<Passwords> passArray=new ArrayList<>();
         for (int j=0;j<this.getAmountOfPasswords();j++)
         {
-            passArr.add(this.getPassAtIndex(j));
+            passArray.add(this.getPassAtIndex(j));
         }
-        for (int i=0;i<passArr.size();i++)
+        for (int i=0;i<passArray.size();i++)
         {
             for (int k=i;k>0;k--)
             {
-                if (i!=0&&passArr.get(k).getUsername().compareTo(passArr.get(k-1).getUsername())<0)
+                if (i!=0&&passArray.get(k).getUsername().compareTo(passArray.get(k-1).getUsername())<0)
                 {
-                    Passwords temp=passArr.get(k);
-                    passArr.set(k, passArr.get(k-1));
-                    passArr.set(k-1, temp);
+                    Passwords temp=passArray.get(k);
+                    passArray.set(k, passArray.get(k-1));
+                    passArray.set(k-1, temp);
                 }
             }
         }
-        return passArr;
+        return passArray;
+    }
+
+    public ArrayList<Passwords> sortByUsernameDescending()
+    {
+        ArrayList<Passwords> temp=sortByUsernameAscending();
+        ArrayList<Passwords> passArray=new ArrayList<>();
+        for (int i=temp.size()-1;i>=0;i--)
+        {
+            passArray.add(temp.get(i));
+        }
+        return passArray;
     }
 
     public void printAllPasswords()

@@ -14,11 +14,11 @@ public class Main
         test.addPassword(new Passwords("a", "a", "a"));
         test.addPassword(new Passwords("thing", "nam", "na"));
         accArr.add(test);
-        test.printAllPasswords();
-        System.out.println("sort separator: --------------------------");
-        System.out.println(test.sortBySite());
-        System.out.println();
-        System.out.println(test.sortByUsername());
+        //test.printAllPasswords();
+        // System.out.println(test.sortByUsernameAscending());
+        // System.out.println();
+        // System.out.println(test.sortByUsernameDescending());
+        // test.printAllPasswords();
         //new LoginPage();
         new Window(test);
     }

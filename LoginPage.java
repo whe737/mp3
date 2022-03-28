@@ -32,7 +32,7 @@ public class LoginPage implements ActionListener
     public LoginPage()
     {
         accArr=Main.getAccounts();
-        System.out.println(accArr);
+        //System.out.println(accArr);
         //main page
         ImageIcon bg=new ImageIcon(".//assets//Frame 1.png");
         ImageIcon lg=new ImageIcon(".//assets//LoginButton.png");
@@ -141,7 +141,7 @@ public class LoginPage implements ActionListener
             {
                 if (i.equals(temp))
                 {
-                    System.out.println("Logged to "+userField.getText());
+                    //System.out.println("Logged to "+userField.getText());
                     new Window(i);
                     loginFound=true;
                     frame.dispose();
@@ -156,7 +156,7 @@ public class LoginPage implements ActionListener
         }
         if (e.getSource()==registerButton2)
         {
-            System.out.println("Account creation requested with username of "+userField2.getText()+" and password of "+String.valueOf(passField2.getPassword()));
+            //System.out.println("Account creation requested with username of "+userField2.getText()+" and password of "+String.valueOf(passField2.getPassword()));
             boolean dupeName=false;
             for (Account i:accArr)
             {
@@ -202,7 +202,7 @@ public class LoginPage implements ActionListener
                     {
                         if (Account.passwordIsStrongEnough(String.valueOf(passField2.getPassword())).equals("Strong"))
                         {
-                            System.out.print("Account made with username "+userField2.getText()+" and password "+String.valueOf(passField2.getPassword()));
+                            //System.out.print("Account made with username "+userField2.getText()+" and password "+String.valueOf(passField2.getPassword()));
                             Main.addAccount(new Account(userField2.getText(),String.valueOf(passField2.getPassword())));
                             accArr=Main.getAccounts();
                             cardSwitch.show(superPanel, "main");
