@@ -7,6 +7,7 @@ import javax.swing.*;
 public class LoginPage implements ActionListener
 {
     private ArrayList<Account> accArr= new ArrayList<>();
+    //Main array=new Main();
     JFrame frame=new JFrame("Byte Locker Login");
     CardLayout cardSwitch=new CardLayout();
     JPanel superPanel=new JPanel(cardSwitch);
@@ -30,11 +31,8 @@ public class LoginPage implements ActionListener
 
     public LoginPage()
     {
-        //example
-        Example examp=new Example("example", "password");
-        accArr.add(examp);
-        examp.resetExample();
-
+        accArr=Main.getAccounts();
+        System.out.println(accArr);
         //main page
         ImageIcon bg=new ImageIcon(".//assets//Frame 1.png");
         ImageIcon lg=new ImageIcon(".//assets//LoginButton.png");
@@ -46,7 +44,7 @@ public class LoginPage implements ActionListener
         userField.setBounds(510,229,300,52);
         userField.setBorder(javax.swing.BorderFactory.createEmptyBorder());  //removes border from textfields
         passField.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        passField.setBounds(510,331,300,52);
+        passField.setBounds(510,344,300,52);
         loginButton.setVisible(true);
         loginButton.setIcon(lg);
         loginButton.setFocusable(false);
@@ -129,7 +127,8 @@ public class LoginPage implements ActionListener
         cardSwitch.show(superPanel, "main");
     }
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) 
+    {
         if (e.getSource()==registerButton)
         {
             cardSwitch.show(superPanel, "register");
@@ -143,7 +142,7 @@ public class LoginPage implements ActionListener
                 if (i.equals(temp))
                 {
                     System.out.println("Logged to "+userField.getText());
-                    //call in the main window here
+                    new Window(i);
                     loginFound=true;
                     frame.dispose();
                 }
@@ -152,11 +151,12 @@ public class LoginPage implements ActionListener
             {
                 loginFail.setText("Please try again.");
                 loginFail.setBounds(615,400,300,54);
-                temp=new Account();
             }
+            temp=new Account();
         }
         if (e.getSource()==registerButton2)
         {
+            System.out.println("Account creation requested with username of "+userField2.getText()+" and password of "+String.valueOf(passField2.getPassword()));
             boolean dupeName=false;
             for (Account i:accArr)
             {
@@ -165,7 +165,6 @@ public class LoginPage implements ActionListener
                     dupeName=true;
                 }
             }
-            System.out.println("Account creation requested");
             if (dupeName)
             {
                 warningLabel.setBounds(565,500,300,100);
@@ -203,7 +202,9 @@ public class LoginPage implements ActionListener
                     {
                         if (Account.passwordIsStrongEnough(String.valueOf(passField2.getPassword())).equals("Strong"))
                         {
-                            accArr.add(new Account(userField2.getText(),String.valueOf(passField2.getPassword())));
+                            System.out.print("Account made with username "+userField2.getText()+" and password "+String.valueOf(passField2.getPassword()));
+                            Main.addAccount(new Account(userField2.getText(),String.valueOf(passField2.getPassword())));
+                            accArr=Main.getAccounts();
                             cardSwitch.show(superPanel, "main");
                         }
                         else 

@@ -23,6 +23,7 @@ public class Passwords
     {
         password=pass;
     }
+    
     public String getLogin()
     {
         return loginPlace;

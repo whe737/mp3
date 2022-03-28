@@ -44,6 +44,22 @@ public class Account
         return passArr.size();
     }
 
+    public void removePassword(int i)
+    {
+        passArr.remove(i-1);
+        passArr2.remove(i-1);
+    }
+
+    public ArrayList<Passwords> sortByChronological()
+    {
+        passArr=new ArrayList<>();
+        for (int i=0;i<passArr.size();i++)
+        {
+            passArr.set(i, passArr2.get(i));
+        }
+        return passArr;
+    }
+
     public ArrayList<Passwords> sortBySite()  //uses selection sort to sort by websites
     {
         ArrayList<Passwords> passArr=new ArrayList<>();
@@ -66,6 +82,28 @@ public class Account
                 Passwords temp=passArr.get(minimum);
                 passArr.set(minimum, passArr.get(i));
                 passArr.set(i, temp);
+            }
+        }
+        return passArr;
+    }
+
+    public ArrayList<Passwords> sortByUsername()
+    {
+        ArrayList<Passwords> passArr=new ArrayList<>();
+        for (int j=0;j<this.getAmountOfPasswords();j++)
+        {
+            passArr.add(this.getPassAtIndex(j));
+        }
+        for (int i=0;i<passArr.size();i++)
+        {
+            for (int k=i;k>0;k--)
+            {
+                if (i!=0&&passArr.get(k).getUsername().compareTo(passArr.get(k-1).getUsername())<0)
+                {
+                    Passwords temp=passArr.get(k);
+                    passArr.set(k, passArr.get(k-1));
+                    passArr.set(k-1, temp);
+                }
             }
         }
         return passArr;
@@ -145,5 +183,9 @@ public class Account
             return "Password does not contain a lowercase. ";
         }
         return "Strong";
+    }
+    public String toString()
+    {
+        return "User: "+username+" Password: "+password;
     }
 }
