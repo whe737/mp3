@@ -19,7 +19,10 @@ public class Window implements ActionListener {
     JScrollPane scrollPane=new JScrollPane();
     Account passArr;
     ArrayList<Passwords> tableData=new ArrayList<>();
-
+    JFrame popUp=new JFrame();
+    JButton backButton2=new JButton();
+    ImageIcon back2=new ImageIcon(".//assets//Back.png");
+    
 
     public Window(Account passArray)
     {
@@ -78,6 +81,15 @@ public class Window implements ActionListener {
         panel.add(logout1);
         panel.add(bgImg);
 
+        popUp.setSize(500,500);
+        popUp.setLocationRelativeTo(null);
+        popUp.setResizable(false);
+        popUp.setLayout(null);
+        backButton2.setIcon(back2);
+        appendButton(backButton2);
+        backButton2.setBounds(50,350,154,44);
+        popUp.add(backButton2);
+
 
         frame.add(panel);
         frame.setBounds(0,0,1280,757);
@@ -119,6 +131,17 @@ public class Window implements ActionListener {
             }
             System.out.println();
             System.out.println(tableData);
+        }
+        if (e.getSource()==addButt)
+        {
+            popUp.setVisible(true);
+            popUp.setTitle("Add Password");
+            JTextField website=new JTextField();
+            
+        }
+        if (e.getSource()==backButton2)
+        {
+            popUp.setVisible(false);
         }
     }
     public void appendButton(JButton a)
