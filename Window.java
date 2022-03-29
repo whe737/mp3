@@ -277,33 +277,34 @@ public class Window implements ActionListener{
         }
         if (e.getSource()==sortButt)
         {
-            if (String.valueOf(dropMenu.getSelectedItem()).equals("Date Added"))
-            {
-                tableData=passArr.sortByChronologicalAscending();
-                updateTable();
-            }
-            if (String.valueOf(dropMenu.getSelectedItem()).equals("Website Ascending"))
-            {
-                tableData=passArr.sortBySiteAscending();
-                updateTable();
-            }
-            if (String.valueOf(dropMenu.getSelectedItem()).equals("Website Descending"))
-            {
-                tableData=passArr.sortBySiteDescending();
-                updateTable();
-            }
-            if (String.valueOf(dropMenu.getSelectedItem()).equals("Username Ascending"))
-            {
-                tableData=passArr.sortByUsernameAscending();
-                updateTable();
-            }
-            if (String.valueOf(dropMenu.getSelectedItem()).equals("Username Descending"))
-            {
-                tableData=passArr.sortByUsernameDescending();
-                updateTable();
-            }
-            System.out.println();
-            System.out.println(tableData);
+            // if (String.valueOf(dropMenu.getSelectedItem()).equals("Date Added"))
+            // {
+            //     tableData=passArr.sortByChronologicalAscending();
+            //     updateTable();
+            // }
+            // if (String.valueOf(dropMenu.getSelectedItem()).equals("Website Ascending"))
+            // {
+            //     tableData=passArr.sortBySiteAscending();
+            //     updateTable();
+            // }
+            // if (String.valueOf(dropMenu.getSelectedItem()).equals("Website Descending"))
+            // {
+            //     tableData=passArr.sortBySiteDescending();
+            //     updateTable();
+            // }
+            // if (String.valueOf(dropMenu.getSelectedItem()).equals("Username Ascending"))
+            // {
+            //     tableData=passArr.sortByUsernameAscending();
+            //     updateTable();
+            // }
+            // if (String.valueOf(dropMenu.getSelectedItem()).equals("Username Descending"))
+            // {
+            //     tableData=passArr.sortByUsernameDescending();
+            //     updateTable();
+            // }
+            // System.out.println();
+            // System.out.println(tableData);
+            reSort();
         }
         if (e.getSource()==addButt)
         {
@@ -348,8 +349,8 @@ public class Window implements ActionListener{
                         password.setText("");
                         website.setText("");
                         popUp.setVisible(false);
-                        convertData();
                         updateTable();
+                        reSort();
                     }
                 }
             }
@@ -414,6 +415,7 @@ public class Window implements ActionListener{
                             warn2.setVisible(true);
                         }
                         updateTable();
+                        reSort();
                     }
                 }
             }
@@ -441,16 +443,19 @@ public class Window implements ActionListener{
             {
                 tableData=passArr.search(searchWebsiteField.getText(), true);
                 updateTable();
+                reSort();
             }
             else if (searchWebsiteField.getText().equals("")&&!searchUsernameField.getText().equals(""))
             {
                 tableData=passArr.search(searchUsernameField.getText(), false);
                 updateTable();
+                reSort();
             }
             else 
             {
                 tableData=passArr.search(searchWebsiteField.getText(), searchUsernameField.getText());
                 updateTable();
+                reSort();
             }
         }
         if (e.getSource()==passGen)
@@ -518,5 +523,33 @@ public class Window implements ActionListener{
         table.setRowHeight(40);
         table.setDragEnabled(false);
         scrollPane.setViewportView(table);
+    }
+    public void reSort()
+    {
+        if (String.valueOf(dropMenu.getSelectedItem()).equals("Date Added"))
+        {
+            tableData=passArr.sortByChronologicalAscending();
+            updateTable();
+        }
+        if (String.valueOf(dropMenu.getSelectedItem()).equals("Website Ascending"))
+        {
+            tableData=passArr.sortBySiteAscending();
+            updateTable();
+        }
+        if (String.valueOf(dropMenu.getSelectedItem()).equals("Website Descending"))
+        {
+            tableData=passArr.sortBySiteDescending();
+            updateTable();
+        }
+        if (String.valueOf(dropMenu.getSelectedItem()).equals("Username Ascending"))
+        {
+            tableData=passArr.sortByUsernameAscending();
+            updateTable();
+        }
+        if (String.valueOf(dropMenu.getSelectedItem()).equals("Username Descending"))
+        {
+            tableData=passArr.sortByUsernameDescending();
+            updateTable();
+        }
     }
 }
