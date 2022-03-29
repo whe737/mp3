@@ -51,17 +51,69 @@ public class Account
 
     public void removePassword(int i)
     {
-        this.passArr.remove(i-1);
-        this.passArr2.remove(i-1);
+        this.passArr.remove(i);
+        this.passArr2.remove(i);
     }
 
-    public ArrayList<Passwords> sortByChronological()
+    public ArrayList<Passwords> sortByChronologicalAscending()
     {
         return passArr;
     }
 
+    public ArrayList<Passwords> search(String n, boolean b) //true is for website only, false is username only
+    {
+        ArrayList<Passwords> passArray=new ArrayList<>();
+        for (int j=0;j<this.getAmountOfPasswords();j++)
+        {
+            passArray.add(this.getPassAtIndex(j));
+        }
+        if (b==true)
+        {
+            for (int i=0;i<passArray.size();i++)
+            {
+                if (!passArray.get(i).getLogin().equals(n))
+                {
+                    passArray.remove(i);
+                    i--;
+                }
+            }
+            return passArray;
+        }
+        else 
+        {
+            for (int i=0;i<passArray.size();i++)
+            {
+                if (!passArray.get(i).getUsername().equals(n))
+                {
+                    passArray.remove(i);
+                    i--;
+                }
+            }
+            return passArray;
+        }
+    }
+
+    public ArrayList<Passwords> search(String website, String username)
+    {
+        ArrayList<Passwords> passArray=new ArrayList<>();
+        for (int j=0;j<this.getAmountOfPasswords();j++)
+        {
+            passArray.add(this.getPassAtIndex(j));
+        }
+        for (int i=0;i<passArray.size();i++)
+        {
+            if (!passArray.get(i).getLogin().equals(website)&&!passArray.get(i).getUsername().equals(username))
+            {
+                passArray.remove(i);
+                i--;
+            }
+        }
+        return passArray;
+    }
+
     public ArrayList<Passwords> sortBySiteAscending()  //uses selection sort to sort by websites
     {
+        int counter=0;
         ArrayList<Passwords> passArray=new ArrayList<>();
         for (int j=0;j<this.getAmountOfPasswords();j++)
         {
@@ -82,8 +134,10 @@ public class Account
                 Passwords temp=passArray.get(minimum);
                 passArray.set(minimum, passArr.get(i));
                 passArray.set(i, temp);
+                counter++;
             }
         }
+        System.out.println("Selection sort sorted "+counter+" times.");
         return passArray;  
     }
 
@@ -100,6 +154,7 @@ public class Account
 
     public ArrayList<Passwords> sortByUsernameAscending()
     {
+        int counter=0;
         ArrayList<Passwords> passArray=new ArrayList<>();
         for (int j=0;j<this.getAmountOfPasswords();j++)
         {
@@ -114,9 +169,11 @@ public class Account
                     Passwords temp=passArray.get(k);
                     passArray.set(k, passArray.get(k-1));
                     passArray.set(k-1, temp);
+                    counter++;
                 }
             }
         }
+        System.out.println("Insertion sort sorted "+counter+" times.");
         return passArray;
     }
 

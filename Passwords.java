@@ -51,4 +51,12 @@ public class Passwords
     {
         return "Login location: "+loginPlace+"\nUsername: "+username+"\nPassword: "+password+"\n";
     }
+    public boolean equals(Object object)
+    {
+        if (((Passwords)object).getLogin().equals(this.loginPlace)&&((Passwords)object).getPassword().equals(this.password)&&((Passwords)object).getUsername().equals(this.username))
+        {
+            return true;
+        }
+        return false;
+    }
 }

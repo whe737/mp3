@@ -14,12 +14,7 @@ public class Main
         test.addPassword(new Passwords("a", "a", "a"));
         test.addPassword(new Passwords("thing", "nam", "na"));
         accArr.add(test);
-        //test.printAllPasswords();
-        // System.out.println(test.sortByUsernameAscending());
-        // System.out.println();
-        // System.out.println(test.sortByUsernameDescending());
-        // test.printAllPasswords();
-        //new LoginPage();
+        System.out.println(test.search("pupilpath","nam"));
         new Window(test);
     }
     public static void addAccount(Account p)
