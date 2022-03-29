@@ -40,11 +40,11 @@ public class Passwords
     {
         if (n==true)
         {
-            return this.loginPlace.toLowerCase().compareTo(pass.getLogin().toLowerCase());
+            return pass.getLogin().toLowerCase().compareTo(this.loginPlace.toLowerCase());
         }
         else
         {
-            return this.username.toLowerCase().compareTo(pass.getUsername().toLowerCase());
+            return pass.getUsername().toLowerCase().compareTo(this.username.toLowerCase());
         }
     }   
     public String toString()

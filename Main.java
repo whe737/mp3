@@ -13,8 +13,11 @@ public class Main
         test.addPassword(new Passwords("pupilpath", "name", "pass"));
         test.addPassword(new Passwords("a", "a", "a"));
         test.addPassword(new Passwords("thing", "nam", "na"));
+        test.addPassword(new Passwords("aasdf", "asdf", "a"));
+        test.addPassword(new Passwords("asf", "sdf", "sdf"));
         accArr.add(test);
-        System.out.println(test.search("pupilpath","nam"));
+        // System.out.println(test.sortBySiteDescending());
+        System.out.println(test.generatePassword());
         new Window(test);
     }
     public static void addAccount(Account p)

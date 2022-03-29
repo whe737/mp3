@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Account 
 {
@@ -111,20 +113,20 @@ public class Account
         return passArray;
     }
 
-    public ArrayList<Passwords> sortBySiteAscending()  //uses selection sort to sort by websites
+    public ArrayList<Passwords> sortBySiteDescending()  //uses selection sort to sort by websites
     {
-        int counter=0;
         ArrayList<Passwords> passArray=new ArrayList<>();
         for (int j=0;j<this.getAmountOfPasswords();j++)
         {
             passArray.add(this.getPassAtIndex(j));
         }
+        int counter=0;
         for (int i=0;i<passArray.size()-1;i++)
         {
             int minimum=i;
-            for (int k=i+1;k<passArray.size()-1;k++)
+            for (int k=i+1;k<passArray.size();k++)
             {
-                if (getPassAtIndex(k).compareTo(getPassAtIndex(minimum),true)<0)
+                if (passArray.get(k).compareTo(passArray.get(minimum),true)<0)
                 {
                     minimum=k;
                 }
@@ -132,7 +134,7 @@ public class Account
             if (i!=minimum)
             {
                 Passwords temp=passArray.get(minimum);
-                passArray.set(minimum, passArr.get(i));
+                passArray.set(minimum, passArray.get(i));
                 passArray.set(i, temp);
                 counter++;
             }
@@ -141,9 +143,9 @@ public class Account
         return passArray;  
     }
 
-    public ArrayList<Passwords> sortBySiteDescending()
+    public ArrayList<Passwords> sortBySiteAscending()
     {
-        ArrayList<Passwords> temp=sortBySiteAscending();
+        ArrayList<Passwords> temp=sortBySiteDescending();
         ArrayList<Passwords> passArray=new ArrayList<>();
         for (int i=temp.size()-1;i>=0;i--)
         {
@@ -263,6 +265,19 @@ public class Account
         }
         return "Strong";
     }
+
+    public String generatePassword()
+    {
+        String characters="abcdefghijklmnopqrstuvwxyzABCDEFGJKLMNPRSTUVWXYZ012345678^$?!@#%&";
+        String randpassword="";
+        for (int i=0;i<16;i++)
+        {
+            int random=(int) (Math.random()*64)+1;
+            randpassword+=characters.substring(random-1,random);
+        }
+        return randpassword;
+    }
+
     public String toString()
     {
         return "User: "+username+" Password: "+password;
