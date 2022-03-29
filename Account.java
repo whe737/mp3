@@ -73,7 +73,7 @@ public class Account
         {
             for (int i=0;i<passArray.size();i++)
             {
-                if (!passArray.get(i).getLogin().equals(n))
+                if (!passArray.get(i).getLogin().toLowerCase().equals(n))
                 {
                     passArray.remove(i);
                     i--;
@@ -85,7 +85,7 @@ public class Account
         {
             for (int i=0;i<passArray.size();i++)
             {
-                if (!passArray.get(i).getUsername().equals(n))
+                if (!passArray.get(i).getUsername().toLowerCase().equals(n))
                 {
                     passArray.remove(i);
                     i--;
@@ -104,7 +104,7 @@ public class Account
         }
         for (int i=0;i<passArray.size();i++)
         {
-            if (!passArray.get(i).getLogin().equals(website)&&!passArray.get(i).getUsername().equals(username))
+            if (!passArray.get(i).getLogin().toLowerCase().equals(website)&&!passArray.get(i).getUsername().toLowerCase().equals(username))
             {
                 passArray.remove(i);
                 i--;

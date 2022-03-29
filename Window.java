@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.ResultSet;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -304,7 +305,7 @@ public class Window implements ActionListener{
             // }
             // System.out.println();
             // System.out.println(tableData);
-            reSort();
+            resetSort();
         }
         if (e.getSource()==addButt)
         {
@@ -349,8 +350,9 @@ public class Window implements ActionListener{
                         password.setText("");
                         website.setText("");
                         popUp.setVisible(false);
+                        convertData();
                         updateTable();
-                        reSort();
+                        resetSort();
                     }
                 }
             }
@@ -415,7 +417,7 @@ public class Window implements ActionListener{
                             warn2.setVisible(true);
                         }
                         updateTable();
-                        reSort();
+                        resetSort();
                     }
                 }
             }
@@ -441,21 +443,21 @@ public class Window implements ActionListener{
             }
             else if (!searchWebsiteField.getText().equals("")&&searchUsernameField.getText().equals(""))
             {
-                tableData=passArr.search(searchWebsiteField.getText(), true);
+                tableData=passArr.search(searchWebsiteField.getText().toLowerCase(), true);
                 updateTable();
-                reSort();
+                //resetSort();
             }
             else if (searchWebsiteField.getText().equals("")&&!searchUsernameField.getText().equals(""))
             {
-                tableData=passArr.search(searchUsernameField.getText(), false);
+                tableData=passArr.search(searchUsernameField.getText().toLowerCase(), false);
                 updateTable();
-                reSort();
+                //resetSort();
             }
             else 
             {
-                tableData=passArr.search(searchWebsiteField.getText(), searchUsernameField.getText());
+                tableData=passArr.search(searchWebsiteField.getText().toLowerCase(), searchUsernameField.getText().toLowerCase());
                 updateTable();
-                reSort();
+                //resetSort();
             }
         }
         if (e.getSource()==passGen)
@@ -524,7 +526,7 @@ public class Window implements ActionListener{
         table.setDragEnabled(false);
         scrollPane.setViewportView(table);
     }
-    public void reSort()
+    public void resetSort()
     {
         if (String.valueOf(dropMenu.getSelectedItem()).equals("Date Added"))
         {
